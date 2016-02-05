@@ -8,6 +8,6 @@ Feature: Do Some things
     """
     kā fēi
     """
-    And I bind key "C-c p" to "pyd2n-convert"
+    And I bind key "C-c p" to "pinyin-convert"
     And I press "C-c p"
     Then I should see "ka1 fei1"
