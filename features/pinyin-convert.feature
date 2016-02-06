@@ -1,9 +1,9 @@
-Feature: Do Some things
-  In order to convert a buffer containing pīnyīn to pin1yin1
+Feature: Convert some pinyin
+  In order to convert a buffer containing pinyin
   As an emacs user
   I want to run a command
 
-  Scenario: Test a simple thing
+  Scenario: Convertng kā fēi
     When I insert:
     """
     kā fēi
