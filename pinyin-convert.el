@@ -59,21 +59,38 @@ syllables written with tone numbers.")
 	"Convert a pinyin syllable with a tone mark to the same syllable with a number."
 	"ka1") ;; TODO
 
-(defun pinyin-convert--to-tone-mark (str)
+(defun pinyin-convert--to-tone-mark (begin end)
 	"Convert all tone number pinyin found in `str` to tone mark pinyin."
-	(replace-regexp-in-string
-	 pinyin-convert--syllable-with-number-regex
-	 'pinyin-convert--syllable-with-number-to-mark str))
+	(save-restriction
+		(narrow-to-region begin end)
+		(goto-char (point-min))
+		(while (search-forward-regexp
+						pinyin-convert--syllable-with-number-regex (point-max) t)
+			(replace-match
+			 (pinyin-convert--syllable-with-number-to-mark
+				(match-string 0))))))
 
-(defun pinyin-convert-region-to-tone-mark ()
-	"Convert any tone number pinyin in region to tone mark pinyin.") ;; TODO
+(defun pinyin-convert--string-to-tone-mark (str)
+	"Convert all tone number pinyin found in `str` to tone mark pinyin."
+	(with-temp-buffer
+		(insert str)
+		(goto-char 0)
+		(pinyin-convert--to-tone-mark (point-min) (point-max))
+		(buffer-string)))
 
-(defun pinyin-convert-region-to-tone-number ()
-	"Convert any tone mark pinyin in region to tone number pinyin.") ;; TODO
+(defun pinyin-convert-to-tone-mark (begin end)
+	"Convert tone number pinyin in active region to tone mark pinyin. If there is no active region, convert the current word to tone number pinyin."
+	(interactive "r")
+	(if (use-region-p)
+			(pinyin-convert--to-tone-mark begin end)
+		(progn
+		 (forward-word)
+		 (let ((end (point)))
+			 (backward-word)
+			 (pinyin-convert--to-tone-mark (point) end)))))
 
-(defun pinyin-convert ()
-	"Convert buffer from diacritical pinyin to tone-number pinyin."
-	(interactive)
-	(replace-regexp "kā fēi" "ka1 fei1" nil 0 (point-max)))
+(defun pinyin-convert-to-tone-number (begin end)
+	"convert any tone mark pinyin in region to tone number pinyin."
+	(interactive "r")) ;; TODO
 
 (provide 'pinyin-convert)
