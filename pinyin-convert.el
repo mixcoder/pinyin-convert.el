@@ -5,7 +5,7 @@
 (defconst pinyin-convert--syllable-with-number-regex
 	(concat	(regexp-opt (with-temp-buffer
 												(insert-file-contents "syllables.txt")
-												(split-string (buffer-string) "\n" t))) "[12345]")
+												(split-string (buffer-string) "\n" t))) "r?[12345]")
 	"A regular expression that matches legal pinyin
 syllables written with tone numbers.")
 
