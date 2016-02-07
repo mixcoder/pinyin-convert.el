@@ -10,7 +10,6 @@
 	"Return a list of pairs of pinyin syllables from file in `/test/fixtures/pinyin`."
 	(mapcar 'split-string (read-lines (concat "test/fixtures/pinyin/" file))))
 
-
 (defconst all-legal-pinyin
 	(append (read-pinyin "tone-1.txt")
 					(read-pinyin "tone-2.txt")
@@ -18,3 +17,9 @@
 					(read-pinyin "tone-4.txt")
 					(read-pinyin "tone-5.txt"))
 	"A list of pairs of legal pinyin.")
+
+(defconst all-legal-tone-mark-pinyin
+	(mapcar 'car all-legal-pinyin))
+
+(defconst all-legal-tone-number-pinyin
+	(mapcar (lambda (arg) (car (last arg))) all-legal-pinyin))
