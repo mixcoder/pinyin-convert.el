@@ -2,10 +2,16 @@
 ;;
 ;; converts pinyin to other pinyin
 
+(directory-files "~/")
+
+(defconst pinyin-convert--syllable-file
+	(concat (file-name-directory (or load-file-name buffer-file-name)) "syllables.txt"))
+
 (defconst pinyin-convert--syllable-with-number-regex
-	(concat	(regexp-opt (with-temp-buffer
-												(insert-file-contents "syllables.txt")
-												(split-string (buffer-string) "\n" t))) "r?[12345]")
+	(concat	(regexp-opt
+					 (with-temp-buffer
+						 (insert-file-contents pinyin-convert--syllable-file)
+						 (split-string (buffer-string) "\n" t))) "r?[12345]")
 	"A regular expression that matches legal pinyin
 syllables written with tone numbers.")
 
@@ -84,10 +90,10 @@ syllables written with tone numbers.")
 	(if (use-region-p)
 			(pinyin-convert--to-tone-mark begin end)
 		(progn
-		 (forward-word)
-		 (let ((end (point)))
-			 (backward-word)
-			 (pinyin-convert--to-tone-mark (point) end)))))
+			(forward-word)
+			(let ((end (point)))
+				(backward-word)
+				(pinyin-convert--to-tone-mark (point) end)))))
 
 (defun pinyin-convert-to-tone-number (begin end)
 	"convert any tone mark pinyin in region to tone number pinyin."
