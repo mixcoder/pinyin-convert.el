@@ -2,8 +2,6 @@
 ;;
 ;; converts pinyin to other pinyin
 
-(directory-files "~/")
-
 (defconst pinyin-convert--syllable-file
 	(concat (file-name-directory (or load-file-name buffer-file-name)) "syllables.txt"))
 
