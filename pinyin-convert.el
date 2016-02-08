@@ -60,7 +60,7 @@ syllables written with tone numbers.")
 	"ka1") ;; TODO
 
 (defun pinyin-convert--to-tone-mark (begin end)
-	"Convert all tone number pinyin found in `str` to tone mark pinyin."
+	"Convert all tone number pinyin found in region to tone mark pinyin."
 	(save-restriction
 		(narrow-to-region begin end)
 		(goto-char (point-min))
