@@ -11,6 +11,9 @@
 
 (add-to-list 'load-path pinyin-convert-root-path)
 
+;; pretend our default directory is `~`
+(setq default-directory (concat default-directory "~"))
+
 (require 'pinyin-convert)
 (require 'espuds)
 (require 'ert)
