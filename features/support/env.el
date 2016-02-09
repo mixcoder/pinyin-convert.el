@@ -1,13 +1,13 @@
 (require 'f)
 
 (defvar pinyin-convert-support-path
-	(f-dirname load-file-name))
+  (f-dirname load-file-name))
 
 (defvar pinyin-convert-features-path
-	(f-parent pinyin-convert-support-path))
+  (f-parent pinyin-convert-support-path))
 
 (defvar pinyin-convert-root-path
-	(f-parent pinyin-convert-features-path))
+  (f-parent pinyin-convert-features-path))
 
 (add-to-list 'load-path pinyin-convert-root-path)
 
