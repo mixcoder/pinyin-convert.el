@@ -140,7 +140,7 @@ syllables written with tone marks.")
     (buffer-string)))
 
 (defun pinyin-convert-to-tone-mark (begin end)
-  "Convert tone number pinyin in active region to tone mark pinyin. If there is no active region, convert the current word to tone number pinyin."
+  "Convert tone number pinyin in active region to tone mark pinyin. If there is no active region, convert the current word to tone mark pinyin."
   (interactive "r")
   (if (use-region-p)
       (pinyin-convert--to-tone-mark begin end)
@@ -151,7 +151,14 @@ syllables written with tone marks.")
         (pinyin-convert--to-tone-mark (point) end)))))
 
 (defun pinyin-convert-to-tone-number (begin end)
-  "convert any tone mark pinyin in region to tone number pinyin."
-  (interactive "r")) ;; TODO
+  "Convert tone mark pinyin in active region to tone number pinyin. If there is no active region, convert the current word to tone number pinyin."
+  (interactive "r")
+  (if (use-region-p)
+      (pinyin-convert--to-tone-number begin end)
+    (progn
+      (forward-word)
+      (let ((end (point)))
+        (backward-word)
+        (pinyin-convert--to-tone-number (point) end)))))
 
 (provide 'pinyin-convert)

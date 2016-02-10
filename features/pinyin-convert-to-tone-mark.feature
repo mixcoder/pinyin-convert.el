@@ -1,5 +1,5 @@
-Feature: Convert tone number pinyin in region to tone mark pinyin
-  In order to convert region from tone number pinyin to tone mark pinyin
+Feature: Convert tone number pinyin to tone mark pinyin
+  In order to convert from tone number pinyin to tone mark pinyin
   As an emacs user
   I want to run a command
 
