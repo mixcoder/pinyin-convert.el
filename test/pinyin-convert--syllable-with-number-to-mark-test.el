@@ -1,5 +1,5 @@
 (ert-deftest pinyin-convert--syllable-with-number-to-mark/ka1-to-ka ()
-  "Should convert 'ka1' to 'kā'."
+  "Should convert `ka1` to `kā`."
   (should (equal "kā" (pinyin-convert--syllable-with-number-to-mark "ka1"))))
 
 (ert-deftest pinyin-convert--syllable-with-number-to-mark/basic-pinyin ()
