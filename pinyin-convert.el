@@ -5,11 +5,15 @@
 (defconst pinyin-convert--syllable-file
   (concat (file-name-directory (or load-file-name buffer-file-name)) "syllables.txt"))
 
+(defconst pinyin-convert--syllables
+  (with-temp-buffer
+    (insert-file-contents pinyin-convert--syllable-file)
+    (split-string (buffer-string) "\n" t))
+  "Syllables."
+  )
+
 (defconst pinyin-convert--syllable-with-number-regex
-  (concat (regexp-opt
-           (with-temp-buffer
-             (insert-file-contents pinyin-convert--syllable-file)
-             (split-string (buffer-string) "\n" t))) "r?[12345]")
+  (concat (regexp-opt pinyin-convert--syllables) "r?[12345]")
   "A regular expression that matches legal pinyin
 syllables written with tone numbers.")
 
@@ -80,8 +84,22 @@ syllables written with tone numbers.")
         (replace-match (pinyin-convert--unmark-vowel (match-string 0)))
         (goto-char (point-max))
         (insert (number-to-string tone-number)))
-        (replace-regexp-in-string
-         "ü" "v" (buffer-string)))))
+      (replace-regexp-in-string
+       "ü" "v" (buffer-string)))))
+
+(defconst pinyin-convert--syllable-with-mark-regex
+  (concat
+   (regexp-opt
+    (apply 'append
+           (mapcar
+            (lambda (syllable)
+              (mapcar
+               (lambda (tone)
+                 (pinyin-convert--syllable-with-number-to-mark
+                  (concat syllable tone))) '("1" "2" "3" "4")))
+            pinyin-convert--syllables))) "r?")
+  "A regular expression that matches legal pinyin
+syllables written with tone marks.")
 
 (defun pinyin-convert--to-tone-mark (begin end)
   "Convert all tone number pinyin found in region to tone mark pinyin."
@@ -94,12 +112,31 @@ syllables written with tone numbers.")
        (pinyin-convert--syllable-with-number-to-mark
         (match-string 0))))))
 
+(defun pinyin-convert--to-tone-number (begin end)
+  "Convert all tone mark pinyin found in region to tone number pinyin."
+  (save-restriction
+    (narrow-to-region begin end)
+    (goto-char (point-min))
+    (while (search-forward-regexp
+            pinyin-convert--syllable-with-mark-regex (point-max) t)
+      (replace-match
+       (pinyin-convert--syllable-with-mark-to-number
+        (match-string 0))))))
+
 (defun pinyin-convert--string-to-tone-mark (str)
   "Convert all tone number pinyin found in `str` to tone mark pinyin."
   (with-temp-buffer
     (insert str)
     (goto-char 0)
     (pinyin-convert--to-tone-mark (point-min) (point-max))
+    (buffer-string)))
+
+(defun pinyin-convert--string-to-tone-number (str)
+  "Convert all tone mark pinyin found in `str` to tone number pinyin."
+  (with-temp-buffer
+    (insert str)
+    (goto-char 0)
+    (pinyin-convert--to-tone-number (point-min) (point-max))
     (buffer-string)))
 
 (defun pinyin-convert-to-tone-mark (begin end)
