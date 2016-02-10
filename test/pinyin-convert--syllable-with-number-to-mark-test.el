@@ -11,8 +11,16 @@
                (pinyin-convert--syllable-with-number-to-mark (car (last pair)))))
       (should (equal pair pair-temp)))))
 
+(ert-deftest pinyin-convert--syllable-with-number-to-mark/neutral-pinyin ()
+  "Should convert pinyin with a tone number of 5."
+  (dolist (pair neutral-pinyin)
+    (should
+     (equal
+      (car pair)
+      (pinyin-convert--syllable-with-number-to-mark (car (last pair)))))))
+
 (ert-deftest pinyin-convert--syllable-with-number-to-mark/nar3-to-nar ()
-  "Should convert `nar3` to nǎr"
+  "Should convert `nar3` to `nǎr`"
   (should (equal "nǎr" (pinyin-convert--syllable-with-number-to-mark "nar3"))))
 
 (ert-deftest pinyin-convert--syllable-with-number-to-mark/erhua ()

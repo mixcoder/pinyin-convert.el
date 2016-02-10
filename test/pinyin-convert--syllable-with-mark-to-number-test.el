@@ -10,6 +10,14 @@
       (car (last pair))
       (pinyin-convert--syllable-with-mark-to-number (car pair))))))
 
+;; (ert-deftest pinyin-convert--syllable-with-mark-to-number/neutral-pinyin ()
+;;   "Should do nothing to tone neutral pinyin."
+;;   (dolist (pair neutral-pinyin)
+;;     (should
+;;      (equal
+;;       (car (last pair))
+;;       (pinyin-convert--syllable-with-mark-to-number (car pair))))))
+
 (ert-deftest pinyin-convert--syllable-with-mark-to-number/nar3-to-nar ()
   "Should convert `nǎr` to `nar3`"
   (should (equal "nar3" (pinyin-convert--syllable-with-mark-to-number "nǎr"))))

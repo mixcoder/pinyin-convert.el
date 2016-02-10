@@ -21,9 +21,27 @@ syllables written with tone numbers.")
     ("u" "ū" "ú" "ǔ" "ù" "u")
     ("v" "ǖ" "ǘ" "ǚ" "ǜ" "ü")))
 
+(defconst pinyin-convert--marked-vowel-list
+  (apply #'append (mapcar (lambda (arg) (butlast (cdr arg))) pinyin-convert--vowels)))
+
 (defun pinyin-convert--mark-vowel (vowel tone-number)
   "Given a vowel and a tone number, return the vowel with the appropriate mark."
   (nth tone-number (assoc vowel pinyin-convert--vowels)))
+
+(defun pinyin-convert--unmark-vowel (vowel)
+  "Given a vowel, return the vowel without any tone mark."
+  (let (unmarked-vowel)
+    (dolist (list pinyin-convert--vowels unmarked-vowel)
+      (if (member vowel list) (setq unmarked-vowel (car list)))
+      unmarked-vowel)))
+
+(defun pinyin-convert--tone-number (vowel)
+  "Given a vowel with a tone mark, return the tone number."
+  (let (tone)
+    (dolist (list pinyin-convert--vowels tone)
+      (if (member vowel list)
+          (setq tone (- 6 (length (member vowel list)))))
+      tone)))
 
 (defun pinyin-convert--syllable-with-number-to-mark (syllable)
   "Convert a pinyin syllable with a tone number to the same syllable with a mark."
@@ -31,7 +49,7 @@ syllables written with tone numbers.")
     (save-match-data
       (with-temp-buffer
         (insert syllable)
-        (goto-char (point-min))
+        (goto-char 0)
         (cond
          ;; If there is an a or an e, it will take the tone mark.
          ((search-forward "a" nil t)
@@ -50,11 +68,20 @@ syllables written with tone numbers.")
         (replace-regexp-in-string
          "v" "ü" (substring (buffer-string) 0 -1))))))
 
-(pinyin-convert--syllable-with-number-to-mark "mo1")
-
 (defun pinyin-convert--syllable-with-mark-to-number (syllable)
   "Convert a pinyin syllable with a tone mark to the same syllable with a number."
-  "ka1") ;; TODO
+  (save-match-data
+    (with-temp-buffer
+      (insert syllable)
+      (goto-char 0)
+      (search-forward-regexp
+       (regexp-opt pinyin-convert--marked-vowel-list) nil t)
+      (let ((tone-number (pinyin-convert--tone-number (match-string 0))))
+        (replace-match (pinyin-convert--unmark-vowel (match-string 0)))
+        (goto-char (point-max))
+        (insert (number-to-string tone-number)))
+        (replace-regexp-in-string
+         "ü" "v" (buffer-string)))))
 
 (defun pinyin-convert--to-tone-mark (begin end)
   "Convert all tone number pinyin found in region to tone mark pinyin."

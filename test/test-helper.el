@@ -14,8 +14,7 @@
   (append (read-pinyin "tone-1.txt")
           (read-pinyin "tone-2.txt")
           (read-pinyin "tone-3.txt")
-          (read-pinyin "tone-4.txt")
-          (read-pinyin "tone-5.txt"))
+          (read-pinyin "tone-4.txt"))
   "A list of pairs of legal pinyin.")
 
 (defconst basic-tone-mark-pinyin
@@ -23,6 +22,14 @@
 
 (defconst basic-tone-number-pinyin
   (mapcar (lambda (arg) (car (last arg))) basic-pinyin))
+
+(defconst neutral-pinyin (read-pinyin "tone-5.txt"))
+
+(defconst neutral-tone-mark-pinyin
+  (mapcar 'car neutral-pinyin))
+
+(defconst neutral-tone-number-pinyin
+  (mapcar (lambda (arg) (car (last arg))) neutral-pinyin))
 
 (defconst erhua-pinyin
   (mapcar (lambda (pair)
