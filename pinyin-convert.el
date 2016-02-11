@@ -40,11 +40,8 @@ tone mark versions of those vowels.")
 
 (defun pinyin-convert--tone-number (vowel)
   "Given a vowel with a tone mark, return the tone number."
-  (let (tone)
-    (dolist (list pinyin-convert--vowels tone)
-      (if (member vowel list)
-	  (setq tone (- 6 (length (member vowel list)))))
-      tone)))
+  ((lambda (arg) (if arg (- 4 (mod (+ 3 (length arg)) 4)) 5))
+   (member vowel pinyin-convert--marked-vowel-list)))
 
 (defconst pinyin-convert--syllable-with-number-regex
   (concat (regexp-opt (mapcar (lambda (arg) (replace-regexp-in-string "ü" "v" arg)) (mapcar (lambda (arg) (replace-regexp-in-string "/" "" arg)) pinyin-convert--syllables))) "r?[12345]")
