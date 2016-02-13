@@ -394,14 +394,14 @@ zōng zong1
 cōng cong1
 sōng song1
 yū yu1
-nǖ nv1
-lǖ lv1
+nǖ nü1 nv1 n:u1 nu:1
+lǖ lü1 lv1 l:u1 lu:1
 jū ju1
 qū qu1
 xū xu1
 yuē yue1
-nüē nve1
-lüē lve1
+nüē nüe1 nve1 n:ue1 nu:e1
+lüē lüe1 lve1 l:ue1 lu:e1
 juē jue1
 quē que1
 xuē xue1
@@ -410,7 +410,7 @@ juān juan1
 quān quan1
 xuān xuan1
 yūn yun1
-lǖn lvn1
+lǖn lün1 lvn1 l:un1 lu:n1
 jūn jun1
 qūn qun1
 xūn xun1

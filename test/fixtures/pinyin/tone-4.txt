@@ -394,15 +394,15 @@ zòng zong4
 còng cong4
 sòng song4
 yù yu4
-nǜ nv4
-lǜ lv4
+nǜ nü4 nv4 n:u4 nu:4
+lǜ lü4 lv4 l:u4 lu:4
 jù ju4
 qù qu4
 xù xu4
 yuè yue4
-nüè nve4
-lüè lve4
-juè jue4
+nüè nüe4 nve4 n:ue4 nu:e4
+lüè lüe4 lve4 l:ue4 lu:e4
+jüè jüe4 jve4 j:ue4 ju:e4
 què que4
 xuè xue4
 yuàn yuan4
@@ -410,7 +410,7 @@ juàn juan4
 quàn quan4
 xuàn xuan4
 yùn yun4
-lǜn lvn4
+lǜn lün4 lvn4 l:un4 lu:n4
 jùn jun4
 qùn qun4
 xùn xun4

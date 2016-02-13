@@ -21,7 +21,7 @@
   (mapcar 'car basic-pinyin))
 
 (defconst basic-tone-number-pinyin
-  (mapcar (lambda (arg) (car (last arg))) basic-pinyin))
+  (apply 'append (mapcar (lambda (syllables) (cdr syllables)) basic-pinyin)))
 
 (defconst neutral-pinyin (read-pinyin "tone-5.txt"))
 
@@ -29,18 +29,20 @@
   (mapcar 'car neutral-pinyin))
 
 (defconst neutral-tone-number-pinyin
-  (mapcar (lambda (arg) (car (last arg))) neutral-pinyin))
+  (apply 'append (mapcar (lambda (syllables) (cdr syllables)) neutral-pinyin)))
 
 (defconst erhua-pinyin
-  (mapcar (lambda (pair)
-            (list (concat (car pair) "r")
-                  (concat (substring (car (last pair)) 0 -1)
-                          "r"
-                          (substring (car (last pair)) -1 nil))))
-          basic-pinyin))
+  (mapcar
+   (lambda (pinyin)
+     (append (list (concat (car pinyin) "r"))
+             (mapcar (lambda (syllable)
+                       (concat (substring syllable 0 -1)
+                               "r"
+                               (substring syllable -1 nil)))
+                     (cdr pinyin)))) basic-pinyin))
 
 (defconst erhua-tone-mark-pinyin
   (mapcar 'car erhua-pinyin))
 
 (defconst erhua-tone-number-pinyin
-  (mapcar (lambda (arg) (car (last arg))) erhua-pinyin))
+  (apply 'append (mapcar (lambda (syllables) (cdr syllables)) erhua-pinyin)))

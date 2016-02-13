@@ -394,14 +394,14 @@ zǒng zong3
 cǒng cong3
 sǒng song3
 yǔ yu3
-nǚ nv3
-lǚ lv3
+nǚ nü3 nv3 n:u3 nu:3
+lǚ lü3 lv3 l:u3 lu:3
 jǔ ju3
 qǔ qu3
 xǔ xu3
 yuě yue3
-nüě nve3
-lüě lve3
+nüě nüe3 nve3 n:ue3 nu:e3
+lüě lüe3 lve3 l:ue3 lu:e3
 juě jue3
 quě que3
 xuě xue3
@@ -410,7 +410,7 @@ juǎn juan3
 quǎn quan3
 xuǎn xuan3
 yǔn yun3
-lǚn lvn3
+lǚn lün3 lvn3 l:un3 lu:n3
 jǔn jun3
 qǔn qun3
 xǔn xun3

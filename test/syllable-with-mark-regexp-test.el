@@ -9,3 +9,9 @@
   (dolist (pair erhua-pinyin)
     (should (string-match
              pinyin-convert--syllable-with-mark-regexp (car pair)))))
+
+(ert-deftest pinyin-convert--syllable-with-mark-regexp/cǎk ()
+  "Should not match `cǎk`." 
+  (should
+   (equal
+     (string-match pinyin-convert--syllable-with-number-regexp "cǎk") nil)))

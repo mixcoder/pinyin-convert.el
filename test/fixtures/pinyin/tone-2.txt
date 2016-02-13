@@ -394,14 +394,14 @@ zóng zong2
 cóng cong2
 sóng song2
 yú yu2
-nǘ nv2
-lǘ lv2
+nǘ nü2 nv2 n:u2 nu:2
+lǘ lü2 lv2 l:u2 lu:2
 jú ju2
 qú qu2
 xú xu2
 yué yue2
-nüé nve2
-lüé lve2
+nüé nüe2 nve2 n:ue2 nu:e2
+lüé lüe2 lve2 l:ue2 lu:e2
 jué jue2
 qué que2
 xué xue2
@@ -410,7 +410,7 @@ juán juan2
 quán quan2
 xuán xuan2
 yún yun2
-lǘn lvn2
+lǘn lün2 lvn2 l:un2 lu:n2
 jún jun2
 qún qun2
 xún xun2
