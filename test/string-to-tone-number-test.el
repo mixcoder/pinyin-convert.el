@@ -4,7 +4,7 @@
            (pinyin-convert--string-to-tone-number "hello") "hello")))
 
 (ert-deftest pinyin-convert--string-to-tone-number/basic-pinyin ()
-  "Should convert giant string of basic pinyin with spaces."
+  "Should convert giant string of basic tone mark pinyin with spaces."
   (should
    (equal
     (mapconcat (lambda (pinyin) (car (cdr pinyin))) basic-pinyin " ")
@@ -12,7 +12,7 @@
      (mapconcat 'concat basic-tone-mark-pinyin " ")))))
 
 (ert-deftest pinyin-convert--string-to-tone-number/neutral-pinyin ()
-  "Should convert giant string of neutral pinyin with spaces."
+  "Should convert giant string of neutral tone mark pinyin with spaces."
   (should
    (equal
     (mapconcat (lambda (pinyin) (car (cdr pinyin))) neutral-pinyin " ")
@@ -20,7 +20,7 @@
      (mapconcat 'concat neutral-tone-mark-pinyin " ")))))
 
 (ert-deftest pinyin-convert--string-to-tone-number/erhua-pinyin ()
-  "Should convert giant string of erhua pinyin with spaces."
+  "Should convert giant string of erhua tone number pinyin with spaces."
   (should
    (equal
     (mapconcat (lambda (pinyin) (car (cdr pinyin))) erhua-pinyin " ")

@@ -1,17 +1,24 @@
 (ert-deftest pinyin-convert--syllable-with-mark-regexp/basic-pinyin ()
-  "Should match basic pinyin."
-  (dolist (pair basic-pinyin)
+  "Should match basic tone mark pinyin."
+  (dolist (syllable basic-tone-mark-pinyin)
     (should (string-match
-             pinyin-convert--syllable-with-mark-regexp (car pair)))))
+             pinyin-convert--syllable-with-mark-regexp syllable))))
 
 (ert-deftest pinyin-convert--syllable-with-mark-regexp/erhua-pinyin ()
-  "Should match erhua pinyin."
-  (dolist (pair erhua-pinyin)
+  "Should match erhua tone mark pinyin."
+  (dolist (syllable erhua-tone-mark-pinyin)
     (should (string-match
-             pinyin-convert--syllable-with-mark-regexp (car pair)))))
+             pinyin-convert--syllable-with-mark-regexp syllable))))
+
+(ert-deftest pinyin-convert--syllable-with-mark-regexp/neutral-pinyin ()
+  "Should not match neutral tone mark pinyin."
+  (dolist (syllable neutral-tone-mark-pinyin)
+    (should
+     (not
+      (string-match pinyin-convert--syllable-with-mark-regexp syllable)))))
 
 (ert-deftest pinyin-convert--syllable-with-mark-regexp/cǎk ()
-  "Should not match `cǎk`." 
+  "Should not match `cǎk`."
   (should
-   (equal
-     (string-match pinyin-convert--syllable-with-number-regexp "cǎk") nil)))
+   (not
+    (string-match pinyin-convert--syllable-with-number-regexp "cǎk"))))
