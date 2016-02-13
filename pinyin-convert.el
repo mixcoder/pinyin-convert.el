@@ -3,14 +3,16 @@
 ;; converts pinyin to other pinyin
 
 (defconst pinyin-convert--syllable-file
-  (concat (file-name-directory (or load-file-name buffer-file-name)) "syllables.txt")
-  "Absolute path to file with a list of toneless legal pinyin syllables.")
+  (concat (file-name-directory (or load-file-name buffer-file-name))
+          "syllables.txt")
+  "Absolute path to `syllables.txt'.
+The file contains a list of all toneless pinyin syllables.")
 
 (defconst pinyin-convert--syllables
   (with-temp-buffer
     (insert-file-contents pinyin-convert--syllable-file)
     (split-string (buffer-string) "\n" t))
-  "A list of toneless legal pinyin syllables.")
+  "A list of all toneless pinyin syllables.")
 
 (defconst pinyin-convert--vowels
   '(("a" "ā" "á" "ǎ" "à" "a")
@@ -19,8 +21,7 @@
     ("o" "ō" "ó" "ǒ" "ò" "o")
     ("u" "ū" "ú" "ǔ" "ù" "u")
     ("ü" "ǖ" "ǘ" "ǚ" "ǜ" "ü"))
-  "An association list mapping tone number pinyin vowels to all the possible
-tone mark versions of those vowels.")
+  "An association list mapping vowels to tone-marked vowels.")
 
 (defconst pinyin-convert--marked-vowel-list
   (apply 'append
@@ -28,11 +29,11 @@ tone mark versions of those vowels.")
   "A list of vowels with tone marks.")
 
 (defun pinyin-convert--mark-vowel (vowel tone-number)
-  "Given a vowel and a tone number, return the vowel with the appropriate mark."
+  "Given a vowel and a tone number, return the tone-marked vowel."
   (nth tone-number (assoc vowel pinyin-convert--vowels)))
 
 (defun pinyin-convert--unmark-vowel (vowel)
-  "Given a vowel, return the vowel without any tone mark."
+  "Given a vowel, return the vowel without a tone mark."
   (let (unmarked-vowel)
     (dolist (list pinyin-convert--vowels unmarked-vowel)
       (if (member vowel list) (setq unmarked-vowel (car list)))
@@ -62,8 +63,9 @@ tone mark versions of those vowels.")
                  (replace-regexp-in-string "ü" rep (buffer-string)))
                '("ü" "v" ":u" "u:"))
             (list (buffer-string))))) pinyin-convert--syllables))) "r?[12345]?")
-  "A regular expression that matches legal pinyin
-syllables written with tone numbers.")
+  "A regular expression that matches tone number pinyin syllables.
+Only tone number pinyin syllables found in Standard Chinese
+should be matched.")
 
 (defconst pinyin-convert--syllable-with-mark-regexp
   (concat
@@ -82,11 +84,12 @@ syllables written with tone numbers.")
                             (backward-char)
                             (buffer-string)) '(1 2 3 4)))))
             pinyin-convert--syllables))) "r?")
-  "A regular expression that matches legal pinyin
-syllables written with tone marks.")
+  "A regular expression that matches tone mark pinyin syllables.
+Only tone mark pinyin syllables found in Standard Chinese should
+be matched.")
 
 (defun pinyin-convert--syllable-with-number-to-mark (syllable)
-  "Convert a pinyin syllable with a tone number to the same syllable with a mark."
+  "Convert a tone number syllable to a tone mark syllable."
   (let (tone-number)
     (setq tone-number (string-to-number (substring syllable -1 nil)))
     (save-match-data
@@ -119,10 +122,8 @@ syllables written with tone marks.")
            (pinyin-convert--mark-vowel (match-string 0) tone-number))))
         (buffer-string)))))
 
-(pinyin-convert--syllable-with-number-to-mark "nv")
-
 (defun pinyin-convert--syllable-with-mark-to-number (syllable)
-  "Convert a pinyin syllable with a tone mark to the same syllable with a number."
+  "Convert a tone mark syllable to a tone number syllable."
   (save-match-data
     (with-temp-buffer
       (insert syllable)
@@ -174,7 +175,9 @@ syllables written with tone marks.")
     (buffer-string)))
 
 (defun pinyin-convert-to-tone-mark (begin end)
-  "Convert tone number pinyin in active region to tone mark pinyin. If there is no active region, convert the current word to tone mark pinyin."
+  "Convert tone number pinyin in active region to tone mark pinyin.
+If there is no active region, convert the current word to tone
+mark pinyin."
   (interactive "r")
   (if (use-region-p)
       (pinyin-convert--to-tone-mark begin end)
@@ -185,7 +188,9 @@ syllables written with tone marks.")
         (pinyin-convert--to-tone-mark (point) end)))))
 
 (defun pinyin-convert-to-tone-number (begin end)
-  "Convert tone mark pinyin in active region to tone number pinyin. If there is no active region, convert the current word to tone number pinyin."
+  "Convert tone mark pinyin in active region to tone number pinyin.
+If there is no active region, convert the current word to tone
+number pinyin."
   (interactive "r")
   (if (use-region-p)
       (pinyin-convert--to-tone-number begin end)
