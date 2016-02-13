@@ -43,12 +43,12 @@ tone mark versions of those vowels.")
   ((lambda (arg) (if arg (- 4 (mod (+ 3 (length arg)) 4)) 5))
    (member vowel pinyin-convert--marked-vowel-list)))
 
-(defconst pinyin-convert--syllable-with-number-regex
+(defconst pinyin-convert--syllable-with-number-regexp
   (concat (regexp-opt (mapcar (lambda (arg) (replace-regexp-in-string "ü" "v" arg)) (mapcar (lambda (arg) (replace-regexp-in-string "/" "" arg)) pinyin-convert--syllables))) "r?[12345]")
   "A regular expression that matches legal pinyin
 syllables written with tone numbers.")
 
-(defconst pinyin-convert--syllable-with-mark-regex
+(defconst pinyin-convert--syllable-with-mark-regexp
   (concat
    (regexp-opt
     (apply 'append
@@ -114,7 +114,7 @@ syllables written with tone marks.")
     (narrow-to-region begin end)
     (goto-char (point-min))
     (while (search-forward-regexp
-	    pinyin-convert--syllable-with-number-regex (point-max) t)
+	    pinyin-convert--syllable-with-number-regexp (point-max) t)
       (replace-match
        (pinyin-convert--syllable-with-number-to-mark
 	(match-string 0))))))
@@ -125,7 +125,7 @@ syllables written with tone marks.")
     (narrow-to-region begin end)
     (goto-char (point-min))
     (while (search-forward-regexp
-	    pinyin-convert--syllable-with-mark-regex (point-max) t)
+	    pinyin-convert--syllable-with-mark-regexp (point-max) t)
       (replace-match
        (pinyin-convert--syllable-with-mark-to-number
 	(match-string 0))))))
