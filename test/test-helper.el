@@ -1,14 +1,19 @@
 (require 'pinyin-convert)
 
-(defun read-lines (filePath)
-  "Return a list of lines of a file at filePath."
+(defun read-lines (file-path)
+  "Return a list of lines of a file at file-path."
   (with-temp-buffer
-    (insert-file-contents filePath)
+    (insert-file-contents file-path)
     (split-string (buffer-string) "\n" t)))
 
 (defun read-pinyin (file)
   "Return a list of pairs of pinyin syllables from file in `/test/fixtures/pinyin`."
-  (mapcar 'split-string (read-lines (concat "test/fixtures/pinyin/" file))))
+  (mapcar
+   'split-string
+   (read-lines
+    (concat
+     (file-name-directory (or load-file-name buffer-file-name))
+     "fixtures/pinyin/" file))))
 
 (defconst basic-pinyin
   (append (read-pinyin "tone-1.txt")
