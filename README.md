@@ -8,6 +8,10 @@ You can use it by highlighting a region containing pinyin and running either `pi
 
 When converting to tone mark pinyin, the strings `v`, `:u` and `u:` are converted to the character `ü`.
 
+## TODO
+
+- make it case insensitive
+
 ## Some details
 
 `syllables.txt` contains a list of [all Hanyu Pinyin syllables](https://en.wikipedia.org/wiki/Pinyin_table) that are used in Standard Chinese. Each of these syllables needs to be combined with a tone to create an actual pinyin syllable. Some of them can be combined with all five tones, but most can only be combined with a subset of the five tones.
