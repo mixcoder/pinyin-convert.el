@@ -6,7 +6,7 @@ For example, `tóng` can be written as `tong2`.
 
 You can use it by highlighting a region containing pinyin and running either `pinyin-convert-to-tone-number` or `pinyin-convert-to-tone-mark`.
 
-When converting to tone mark pinyin, the character `v` is converted to the character `ü`.
+When converting to tone mark pinyin, the strings `v`, `:u` and `u:` are converted to the character `ü`.
 
 ## Some details
 
